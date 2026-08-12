@@ -12,8 +12,23 @@ recorded rather than hidden behind a forced binary answer.
 ## GenLayer-native decision
 
 The contract makes a neutral shared decision from conflicting natural-language
-evidence. Its custom validator compares the complete normalized per-source
-observation set and the derived outcome, not merely JSON format.
+evidence. Its custom validator independently recomputes and compares the
+consequential status and outcome, not merely JSON format. Per-source
+observations remain stored as audit metadata.
+
+## Lifecycle and API
+
+- Deploy in `OPEN` with frozen source domains, tiers, and confirmation policy.
+- Call `resolve()` after the deadline. Confirmed claims become `RESOLVED`;
+  conflicts and outages stay explicit rather than being forced to yes/no.
+- Read the policy result and audit summary with `get_state()`.
+- Downstream contracts must consume only finalized GenLayer transactions.
+
+## Live evidence
+
+- [StudioNet contract](https://explorer-studio.genlayer.com/address/0xF9CE275c6B10e335b4f1D51Aa805C586Ae1317d4)
+- [Bradbury contract](https://explorer-bradbury.genlayer.com/address/0x44826C9FF1bDa39CB14F60dB2C1de7833928b423)
+- Exact receipts and current finality are recorded in `deployments/`.
 
 ## Verify
 
