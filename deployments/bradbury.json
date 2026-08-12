@@ -1,0 +1,19 @@
+{
+  "contract": "SourceConflictKernel",
+  "network": "testnet-bradbury",
+  "chain_id": 4221,
+  "deployer": "0xdB433ff614bDD1ecE21Aa97221C3e0a7ecf79c92",
+  "contract_address": "0x44826C9FF1bDa39CB14F60dB2C1de7833928b423",
+  "deployment_transaction": "0xf2d02fbcda70bdded05dd0799ae278bcaf20708e3574451b426cbfe44df9b1bc",
+  "explorer_url": "https://explorer-bradbury.genlayer.com/address/0x44826C9FF1bDa39CB14F60dB2C1de7833928b423",
+  "runner": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6",
+  "deployment_execution_verified": true,
+  "protocol_status": "ACCEPTED",
+  "protocol_status_code": 5,
+  "batch_submitted_before_finality_check": true,
+  "batch_started_utc": "2026-08-12T17:38:05.8111878Z",
+  "batch_completed_utc": "2026-08-12T17:41:04.0808420Z",
+  "finalized_verified": false,
+  "consensus_test_transaction": null,
+  "note": "The appeal window is open. Finalization and the Bradbury consensus test remain pending."
+}

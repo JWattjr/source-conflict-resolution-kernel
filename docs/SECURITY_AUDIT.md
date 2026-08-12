@@ -1,59 +1,43 @@
-# Security and consensus audit
+# Security and consensus audit: SourceConflictKernel
 
-Audit date: 2026-08-12  
-Scope: the six Python Intelligent Contracts in `contracts/`  
+Audit date: 2026-08-12
+Scope: `contracts/SourceConflictKernel.py`
 Method: manual review, GenVM AST lint, SDK schema validation, direct-mode
-regression tests, explicit validator execution, and hosted-network smoke tests.
+tests, malicious-leader checks, and hosted-network receipt inspection.
 
-## Executive summary
+## Result
 
-The reviewed contracts implement bounded GenLayer-native judgment primitives.
-No unresolved critical or high-severity code issue was found after remediation.
-They do not hold or transfer funds, which substantially limits direct asset-loss
-risk. A production payout adapter remains out of scope and must wait for
-GenLayer finality before making irreversible transfers.
+No unresolved critical or high-severity issue was found after remediation.
+The contract stores a bounded judgment and never custodies or transfers funds.
 
 ## Remediated findings
 
 | ID | Severity | Finding | Remediation |
 | --- | --- | --- | --- |
-| GL-01 | High | Rulebook winner IDs were free-form LLM output. | Freeze a participant allowlist at deployment and fail to `INCONCLUSIVE` for unknown winners. |
-| GL-02 | Medium | MarketSpecGuard checked terminal state `LISTED` although it stores `LISTABLE`. | Correct terminal-state check and add idempotency regression coverage. |
-| GL-03 | Medium | All-source outages still invoked the LLM, allowing unsupported terminal judgments. | Derive deterministic unresolved/inconclusive results before any LLM call when every source is unavailable. |
-| GL-04 | Medium | HTTPS validation allowed localhost, private literal IPs, userinfo, non-default ports, and internal-style hosts. | Add bounded public-host validation to all evidence inputs. |
-| GL-05 | Medium | TruthGraph formulas could reference undeclared atom IDs and silently resolve them as unknown. | Validate the complete formula graph against frozen atom IDs in the constructor. |
-| GL-06 | Medium | CLI JSON arguments are decoded before contract invocation, while constructors originally assumed JSON strings. | Accept decoded list/object values and persist canonical JSON strings internally. |
-| GL-07 | Low | UTF-8 decoding could fail on malformed or truncated source bytes. | Bound bytes before decoding and replace invalid byte sequences. |
-| GL-08 | Low | Conditional false-trigger state did not expose an explicit terminal outcome. | Store `outcome = VOID` when the trigger is false. |
-| GL-09 | Low | Milestone score used a float-producing division before integer conversion. | Use integer floor division for deterministic basis-point scoring. |
-| GL-10 | Low | Validator wrappers accepted any object exposing `calldata`. | Require `gl.vm.Return` before comparing leader and independent results. |
+| SC-01 | Medium | An all-source outage could produce an unsupported terminal judgment. | Derive `SOURCE_UNAVAILABLE` before prompting when every fetch fails. |
+| SC-02 | Medium | URL validation permitted private targets and duplicate source domains. | Require distinct public HTTPS domains and reject userinfo, private IPs, internal suffixes, and non-default ports. |
+| SC-03 | Medium | Consensus closures captured contract storage. | Snapshot claim, canonical source specs, and confirmation threshold before nondeterministic execution; closures contain no `self`. |
+| SC-04 | Medium | Diagnostic observation differences could reject an equivalent settlement. | Validators independently recompute and compare the consequential `status` and `outcome`; observations remain audit metadata. |
+| SC-05 | Low | Malformed bytes, decoded CLI JSON, and loose return wrappers reduced resilience. | Bound/decode source bytes safely, canonicalize decoded JSON, and require `gl.vm.Return`. |
 
-## Residual risks and assumptions
+## Residual risks
 
-- Hostname validation cannot prevent DNS rebinding by itself. Deploy only with
-  stable, pre-reviewed public source domains; production deployments should add
-  an explicit domain allowlist.
-- Public pages can drift between leader and validator fetches. The contracts
-  compare normalized decision fields and fail consensus on substantive
-  disagreement, but highly dynamic pages remain poor evidence.
-- LLMs may disagree on genuinely ambiguous language. This is expected; the
-  network can rotate validators or become undetermined rather than forcing a
-  settlement.
-- Source authenticity is external to the contracts. HTTPS reachability is not
-  proof that a publisher is authoritative.
-- Contract-level outcomes should be consumed only after network finality. This
-  repository contains no payout or escrow code.
+- Source tiers are deployer-supplied policy labels, not cryptographic proof of
+  authority.
+- Two publishers can repeat the same upstream error despite distinct domains.
+- Public content drift can cause disagreement; failure to reach consensus is a
+  deliberate fail-closed outcome.
+- DNS rebinding requires operational controls or a strict domain allowlist.
 
-## Verification gates
+## Verification evidence
 
-- All contract files use the pinned `py-genlayer` runner.
-- GenVM AST lint passes for all six files.
-- GenLayer SDK schema validation passes for all six files.
-- Direct tests cover happy paths, fail-closed paths, deadline/lifecycle logic,
-  malicious leader disagreement, URL controls, formula integrity, source
-  conflict, unknown participants, and idempotency.
-- Hosted deployments are counted as evidence only when the leader execution
-  receipt is `SUCCESS` and schema/state reads succeed.
+- Pinned GenVM runner; GenVM lint and SDK validation pass.
+- Standalone direct suite: 3 passed, including explicit conflict and malicious
+  leader rejection.
+- StudioNet deployment and resolution are finalized with `SUCCESS`, 3 agree / 2
+  idle, no storage warning, and two supporting independent observations.
+- Live state: `RESOLVED`, outcome `YES`.
+- Bradbury status remains governed by the separate deployment manifest.
 
-This review is an engineering security assessment, not a formal verification,
-financial guarantee, or legal certification.
+This is an engineering assessment, not formal verification or a financial or
+legal guarantee.
