@@ -11,14 +11,13 @@ GenLayer Intelligent Contract for prediction markets and oracles where public
 sources may disagree. Deployment freezes 2-8 distinct source domains, source
 tiers, a minimum confirmation policy, the claim, and deadline. The leader and
 validators independently classify each source as SUPPORTS, REFUTES, or UNCLEAR;
-the custom validator compares the normalized per-source observation set and
-outcome. Deterministic policy produces YES, NO, CONTESTED, UNAVAILABLE, or
-INCONCLUSIVE instead of forcing a false binary settlement. The contract rejects
-private-network URLs and credentials, bounds fetched content, handles source
-outages, prevents premature/repeated terminal resolution, and stores auditable
-attempt metadata. Includes pinned GenVM source, validator tests, security audit,
-test matrix, and StudioNet/Bradbury deployment records. It does not custody or
-transfer funds.
+the custom validator independently recomputes and compares the consequential
+status and outcome, while per-source observations remain audit metadata.
+Deterministic policy exposes CONTESTED/UNAVAILABLE/INCONCLUSIVE instead of
+forcing a false binary result. It rejects private URLs, bounds fetched content,
+handles outages, and prevents premature or repeated terminal resolution.
+Includes pinned GenVM source, validator tests, security audit, test matrix, and
+StudioNet/Bradbury records. It does not custody or transfer funds.
 
 ## Evidence to add
 
