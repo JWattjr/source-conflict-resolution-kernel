@@ -17,7 +17,7 @@
   "batch_completed_utc": "2026-08-12T17:41:04.0808420Z",
   "finalized_verified": true,
   "consensus_test_transaction": "0x7ba4ca97ee9ac676cd080b7af7d8ec40c56a956161479793e59b1ff8c7705ca5",
-  "consensus_test_status": "ACCEPTED",
+  "consensus_test_status": "FINALIZED",
   "consensus_test_execution": "FINISHED_WITH_RETURN",
   "consensus_result": "MAJORITY_AGREE",
   "validator_votes": {"finished_with_return": 4, "timeout": 1},
@@ -28,6 +28,7 @@
     "immutable-doc": "SUPPORTS",
     "published-doc": "SUPPORTS"
   },
-  "consensus_test_finalized_verified": false,
-  "note": "The selected leader timed out, but four validators produced the identical result hash and the round finalized majority agreement at acceptance. The test appeal window remains open."
+  "consensus_test_finalized_verified": true,
+  "finality_verified_utc": "2026-08-12T19:04:34.8471993Z",
+  "note": "Deployment and consensus test are finalized. The selected leader timed out, but four validators produced the identical result hash and the round reached majority agreement."
 }
