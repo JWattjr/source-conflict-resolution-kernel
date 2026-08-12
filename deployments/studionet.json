@@ -1,0 +1,14 @@
+{
+  "contract": "SourceConflictKernel",
+  "network": "studionet",
+  "chain_id": 61999,
+  "deployer": "0xdB433ff614bDD1ecE21Aa97221C3E0a7ecf79c92",
+  "contract_address": "0xb57e0B66f33c62F327f9B7d618843A6a43106Cea",
+  "deployment_transaction": "0x698ec0b766d1e7ebb245aa905e83b7dd4f8c083028f73ec49374ed827b981f77",
+  "explorer_url": "https://explorer-studio.genlayer.com/address/0xb57e0B66f33c62F327f9B7d618843A6a43106Cea",
+  "runner": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6",
+  "execution_verified": true,
+  "schema_verified": true,
+  "state_verified": true,
+  "finalized_verified": true
+}

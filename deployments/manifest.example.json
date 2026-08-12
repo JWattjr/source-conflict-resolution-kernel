@@ -1,0 +1,13 @@
+{
+  "contract": "TruthGraph",
+  "source_file": "contracts/truth_graph.py",
+  "source_commit": "REPLACE_WITH_GIT_COMMIT",
+  "network": "testnet_bradbury",
+  "chain_id": 4221,
+  "contract_address": "REPLACE_WITH_ADDRESS",
+  "deployment_transaction": "REPLACE_WITH_TX_HASH",
+  "explorer_url": "https://explorer-bradbury.genlayer.com/address/REPLACE_WITH_ADDRESS",
+  "constructor_args": [],
+  "runner": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6",
+  "deployed_at_utc": "REPLACE_WITH_ISO_TIMESTAMP"
+}
